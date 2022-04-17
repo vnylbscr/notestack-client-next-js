@@ -1,0 +1,36 @@
+{
+  "name": "nextjs-client",
+  "private": true,
+  "scripts": {
+    "dev": "next dev -p 3007",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@chakra-ui/react": "^1.8.0",
+    "@emotion/react": "^11",
+    "@emotion/styled": "^11",
+    "axios": "^0.25.0",
+    "cookie": "^0.4.2",
+    "framer-motion": "^6.2.8",
+    "next": "12.1.0",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "react-hook-form": "^7.25.1",
+    "react-intersection-observer": "^8.33.1",
+    "react-query": "^3.34.12",
+    "timeago-react": "^3.0.4",
+    "zustand": "^3.7.1"
+  },
+  "devDependencies": {
+    "@types/cookie": "^0.4.1",
+    "@types/node": "17.0.12",
+    "@types/react": "17.0.38",
+    "eslint": "8.7.0",
+    "eslint-config-next": "12.0.8",
+    "openapi-typescript": "^5.2.0",
+    "swagger-typescript-api": "^9.3.1",
+    "typescript": "4.5.5"
+  }
+}
