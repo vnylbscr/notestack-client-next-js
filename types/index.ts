@@ -40,6 +40,13 @@ export interface CreateNote {
   color?: string;
 }
 
+export interface UpdateNoteDto {
+  id: string;
+  title: string;
+  text: string;
+  color: string;
+}
+
 export type ResObject<T> = {
   data: T;
   status: number;

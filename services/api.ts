@@ -9,6 +9,7 @@ import {
   Note,
   RegisterParams,
   ResObject,
+  UpdateNoteDto,
   WithPagination,
 } from "types";
 
@@ -100,16 +101,14 @@ const mutation = {
       .then((res) => res.data);
   },
   updateNote: async ({
-    noteId,
     data,
     token,
   }: {
-    noteId: string;
-    data: Omit<CreateNote, "userId">;
+    data: UpdateNoteDto;
     token: string;
   }): Promise<ResObject<Note>> => {
     return client(token)
-      .put(`/note?id=${noteId}`, data)
+      .post(`/note/updateNote`, data)
       .then((res) => res.data);
   },
   completeNote: async (

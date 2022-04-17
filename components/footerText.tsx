@@ -11,6 +11,7 @@ const FooterText = () => {
       p={4}
       direction="column"
       gap={"1rem"}
+      height="100px"
     >
       <HeadingWithCustomFont fontSize="xl">
         Copyright {new Date().getFullYear()} NoteStack.{" "}

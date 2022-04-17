@@ -10,7 +10,6 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { AnimatePresence, AnimateSharedLayout, motion } from "framer-motion";
-import useStore from "global-store/useStore";
 import React, { useCallback } from "react";
 import TimeAgo from "timeago-react";
 import { Note } from "types";
@@ -22,6 +21,7 @@ type Props = {
   onCompleted?: NoteFunc;
   onEdited?: NoteFunc;
   isOpen?: boolean;
+  showEditButton?: boolean;
 };
 
 const NoteItem: React.FC<Props> = ({
@@ -29,8 +29,8 @@ const NoteItem: React.FC<Props> = ({
   onCompleted,
   onDeleted,
   onEdited,
+  showEditButton = true,
 }) => {
-  const { setSelectedNote } = useStore();
   const { isOpen, onToggle } = useDisclosure();
 
   const iconSettings = {
@@ -92,7 +92,7 @@ const NoteItem: React.FC<Props> = ({
             </Tooltip>
           </Flex>
           <AnimatePresence>
-            {isOpen && (
+            {isOpen && showEditButton && (
               <motion.section
                 key="content"
                 initial="collapsed"

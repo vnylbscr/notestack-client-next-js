@@ -310,7 +310,7 @@ const Home: React.FC<IProps> = ({ token, user }) => {
                     defaultIndex={0}
                   >
                     <TabList>
-                      <Tab
+                      {/* <Tab
                         onClick={() => {
                           store.setActiveTab("active");
                         }}
@@ -318,8 +318,8 @@ const Home: React.FC<IProps> = ({ token, user }) => {
                         fontSize={"xl"}
                       >
                         Todo
-                      </Tab>
-                      <Tab
+                      </Tab> */}
+                      {/* <Tab
                         onClick={() => {
                           store.setActiveTab("completed");
                         }}
@@ -327,7 +327,7 @@ const Home: React.FC<IProps> = ({ token, user }) => {
                         fontSize={"xl"}
                       >
                         Completed
-                      </Tab>
+                      </Tab> */}
                     </TabList>
                     <TabPanels>
                       <TabPanel id={"tab-panel-active"} p={"0"}>
@@ -345,7 +345,7 @@ const Home: React.FC<IProps> = ({ token, user }) => {
                         ) : (
                           <Fragment>
                             {userNotes && userNotes?.pages?.length > 0 && (
-                              <Fragment>
+                              <Box minH={"58vh"}>
                                 {userNotes?.pages.map((page, index) => {
                                   return (
                                     <Fragment key={index}>
@@ -409,31 +409,33 @@ const Home: React.FC<IProps> = ({ token, user }) => {
                                           />
                                         );
                                       })}
+                                      {page.data.items.length === 0 && (
+                                        <Flex
+                                          direction={"column"}
+                                          justify="center"
+                                          align={"center"}
+                                          height={"60vh"}
+                                          gap="2rem"
+                                        >
+                                          <Text>
+                                            You don't have any notes yet.
+                                          </Text>
+                                          <Button
+                                            onClick={() => {}}
+                                            colorScheme={"teal"}
+                                          >
+                                            Add a note.
+                                          </Button>
+                                        </Flex>
+                                      )}
                                     </Fragment>
                                   );
                                 })}
                                 <div ref={ref} />
-                                {!hasNextPage && (
-                                  <Box
-                                    p={4}
-                                    bg="transparent"
-                                    boxShadow="lg"
-                                    width={"full"}
-                                  >
-                                    <Text fontSize="lg">
-                                      No more notes to show
-                                    </Text>
-                                  </Box>
-                                )}
-                              </Fragment>
+                              </Box>
                             )}
                           </Fragment>
                         )}
-                      </TabPanel>
-
-                      {/* COMPLETED */}
-                      <TabPanel tabIndex={1}>
-                        <Text>Merto lala completed tab index 1</Text>
                       </TabPanel>
                     </TabPanels>
                   </Tabs>
@@ -443,7 +445,6 @@ const Home: React.FC<IProps> = ({ token, user }) => {
                       onSubmit={(data) => {
                         updateNoteMutation([
                           {
-                            noteId: data.id,
                             data,
                             token,
                           },

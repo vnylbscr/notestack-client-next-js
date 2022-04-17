@@ -23,7 +23,7 @@ import { GetServerSidePropsContext } from "next";
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 import { useQueryClient } from "react-query";
-import { User, Note, ResObject } from "types";
+import { Note, ResObject, User } from "types";
 
 type Props = {
   user: User;
@@ -85,10 +85,34 @@ const SearchPage: React.FC<Props> = ({ user, token }) => {
   });
 
   const {
-    mutateAsync: updateNoteMutation,
-    isLoading: updateNoteMutationLoading,
-    isError: updateMutationisError,
-  } = useTypeSafeMutation("updateNote");
+    mutateAsync: completeNoteMutation,
+    isLoading: isLoadingCompleteNote,
+    error: completeNoteError,
+  } = useTypeSafeMutation("completeNote", {
+    onSuccess: ({ data: response }) => {
+      const cachedData = queryClient.getQueryData("searchNote") as
+        | ResObject<Note[]>
+        | undefined;
+
+      if (cachedData) {
+        const newData = cachedData.data.map((item) => {
+          if (item.id === response.id) {
+            return {
+              ...item,
+              completed: true,
+            };
+          }
+          return item;
+        });
+        queryClient.setQueryData("searchNote", (existData) => {
+          return {
+            ...cachedData,
+            data: newData,
+          };
+        }) as ResObject<Note[]> | undefined;
+      }
+    },
+  });
 
   useEffect(() => {
     if (!router.isReady) return;
@@ -133,6 +157,36 @@ const SearchPage: React.FC<Props> = ({ user, token }) => {
                       store.setIsOpenModal(true);
                     }}
                     note={note}
+                    showEditButton={false}
+                    onCompleted={(id) => {
+                      console.log("completed note id", id);
+                      completeNoteMutation([id, token])
+                        .then((res) => {
+                          console.log("completed note", res);
+                          toast({
+                            status: "success",
+                            description: `Good job 💪 Note completed successfully.`,
+                          });
+                        })
+                        .catch((err) => {
+                          console.log("error is", err);
+                          toast({
+                            status: "error",
+                            description: `Note can't completed.`,
+                          });
+                        });
+                    }}
+                    onEdited={(id) => {
+                      const foundNote = foundItems?.data.find(
+                        (item) => item.id === id
+                      );
+
+                      if (foundNote) {
+                        store.setEditedNote(foundNote);
+                      }
+
+                      store.setIsDrawerOpen(true);
+                    }}
                   />
                 </Flex>
               ))}

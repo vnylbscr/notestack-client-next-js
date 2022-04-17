@@ -12,6 +12,7 @@ import {
   PopoverTrigger,
   SimpleGrid,
   Text,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { COLORS } from "@lib/constants";
 import { getEnumKeyByEnumValue } from "@lib/utilFunctions";
@@ -20,33 +21,42 @@ import React from "react";
 type Props = {
   onSelect: (color: string) => void;
   color: string;
+  fullWidth?: boolean;
 };
 
 // create an array of colors value
 const colors = Object.values(COLORS);
 
-const ColorPickerInput: React.FC<Props> = ({ onSelect, color }) => {
+const ColorPickerInput: React.FC<Props> = ({ onSelect, color, fullWidth }) => {
+  const { isOpen, onToggle, onClose } = useDisclosure({
+    defaultIsOpen: false,
+  });
   return (
-    <Popover>
+    <Popover isOpen={isOpen}>
       <PopoverTrigger>
         <Box>
           <Button
             aria-label={color}
             background={color}
             height="42px"
-            width="42px"
+            width={fullWidth ? "100%" : "42px"}
             padding={0}
             minWidth="unset"
             borderRadius={3}
+            onClick={onToggle}
+            _hover={{
+              bg: color,
+              opacity: 0.8,
+            }}
           />
-          <Text textAlign={"center"} fontSize={"xs"}>
+          <Text textAlign={"center"} fontSize={"xs"} mt={fullWidth ? "4" : "0"}>
             {getEnumKeyByEnumValue(COLORS, color)}
           </Text>
         </Box>
       </PopoverTrigger>
       <PopoverContent width="170px">
         <PopoverArrow bg={color} />
-        <PopoverCloseButton color="white" />
+        <PopoverCloseButton onClick={onClose} color="white" />
         <PopoverHeader
           height="100px"
           backgroundColor={color}
@@ -76,6 +86,7 @@ const ColorPickerInput: React.FC<Props> = ({ onSelect, color }) => {
                 _hover={{ background: c }}
                 onClick={() => {
                   onSelect(c);
+                  onToggle();
                 }}
               ></Button>
             ))}

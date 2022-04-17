@@ -15,6 +15,7 @@ import { useTypeSafeMutation } from "hooks/useTypeSafeMutation";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { Note } from "types";
+import ColorPickerInput from "./colorPicker";
 import MyInput from "./my-input";
 
 interface Props {
@@ -28,6 +29,7 @@ interface IState {
   text: string;
   title: string;
   id: string;
+  color: string;
 }
 
 const EditNoteDrawer: React.FC<Props> = ({
@@ -36,10 +38,11 @@ const EditNoteDrawer: React.FC<Props> = ({
   isOpen,
   onClose,
 }) => {
-  const { control, handleSubmit, watch } = useForm({
+  const { control, handleSubmit, watch, setValue } = useForm({
     defaultValues: {
       title: selectedNote?.title || "",
       text: selectedNote?.text || "",
+      color: selectedNote?.color || "",
     },
   });
 
@@ -50,6 +53,7 @@ const EditNoteDrawer: React.FC<Props> = ({
       ...data,
       id: selectedNote?.id || "",
     });
+    onClose();
   });
 
   console.log("selectedNote text drawer", selectedNote?.text);
@@ -87,6 +91,14 @@ const EditNoteDrawer: React.FC<Props> = ({
                   width: "full",
                   variant: "flushed",
                 }}
+              />
+
+              <ColorPickerInput
+                onSelect={(color) => {
+                  setValue("color", color);
+                }}
+                color={watch("color")}
+                fullWidth
               />
             </Stack>
           </DrawerBody>

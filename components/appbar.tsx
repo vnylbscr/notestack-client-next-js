@@ -17,6 +17,7 @@ import { useTypeSafeMutation } from "hooks/useTypeSafeMutation";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useRef } from "react";
+import { useQueryClient } from "react-query";
 import { FONT_FAMILY } from "./headingWithCustomFont";
 const iconSettings = {
   width: 20,
@@ -31,6 +32,7 @@ const Appbar: React.FC = ({}) => {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const router = useRouter();
   const { mutateAsync } = useTypeSafeMutation("logout");
+  const client = useQueryClient();
 
   useEffect(() => {
     const cmdK = (e: KeyboardEvent) => {
@@ -68,6 +70,7 @@ const Appbar: React.FC = ({}) => {
       localStorage.removeItem("token");
       localStorage.removeItem("user");
       router.push("/login");
+      client.clear();
     });
   };
 
