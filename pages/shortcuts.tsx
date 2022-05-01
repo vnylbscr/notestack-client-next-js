@@ -20,7 +20,7 @@ type Props = {};
 
 const ShortcutsPage = (props: Props) => {
   return (
-    <AppLayout isLoggedIn title={"Shortcuts"}>
+    <AppLayout isLoggedIn={false} title={"Shortcuts"}>
       <AnimationPageLayout>
         <Container maxW={"container.xl"} h="100vh">
           <Stack justify={"center"} mt="14" align="center">

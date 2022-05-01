@@ -66,12 +66,17 @@ const Appbar: React.FC = ({}) => {
   };
 
   const handleLogout = () => {
-    mutateAsync([], {}).then(() => {
-      localStorage.removeItem("token");
-      localStorage.removeItem("user");
-      router.push("/login");
-      client.clear();
-    });
+    mutateAsync([], {})
+      .then(() => {
+        console.log("logout on appbar");
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+        router.push("/login");
+        client.clear();
+      })
+      .catch((err) => {
+        console.log("error is logout appbar", err);
+      });
   };
 
   return (

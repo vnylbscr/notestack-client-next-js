@@ -5,7 +5,6 @@ import {
   Container,
   Flex,
   Heading,
-  Tab,
   TabList,
   TabPanel,
   TabPanels,
@@ -32,7 +31,7 @@ import type { GetServerSidePropsContext } from "next";
 import React, { Fragment, useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 import { useInfiniteQuery, useQueryClient } from "react-query";
-import { Note, User, Mert } from "types";
+import { Note, User } from "types";
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   try {

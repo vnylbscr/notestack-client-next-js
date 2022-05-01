@@ -67,7 +67,7 @@ const query = {
 
 const mutation = {
   login: async (data: LoginState): Promise<ResObject<LoginResponse>> => {
-    return axios.post(`${END_POINT}/auth/login`, data, {
+    return axios.post("/api/login", data, {
       withCredentials: true,
     });
   },
@@ -77,7 +77,7 @@ const mutation = {
     password,
   }: RegisterParams): Promise<ResObject<String>> => {
     return axios
-      .post(`${END_POINT}/auth/register`, {
+      .post("", {
         email,
         username,
         password,
@@ -121,7 +121,7 @@ const mutation = {
   },
   logout: async (): Promise<ResObject<string>> => {
     return axios
-      .post(`${END_POINT}/auth/logout`, {}, { withCredentials: true })
+      .post(`/api/logout`, {}, { withCredentials: true })
       .then((res) => res.data);
   },
 };
