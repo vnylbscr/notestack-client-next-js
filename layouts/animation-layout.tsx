@@ -1,11 +1,7 @@
 import { motion } from "framer-motion";
 import React from "react";
 
-type Props = {
-  children: React.ReactNode;
-};
-
-const AnimationPageLayout: React.FC<Props> = ({ children }) => {
+const AnimationPageLayout: React.FC = ({ children }) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 40, x: 0 }}

@@ -7,11 +7,8 @@ import {
   DrawerFooter,
   DrawerHeader,
   DrawerOverlay,
-  Flex,
   Stack,
 } from "@chakra-ui/react";
-import useStore from "global-store/useStore";
-import { useTypeSafeMutation } from "hooks/useTypeSafeMutation";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { Note } from "types";
@@ -46,8 +43,6 @@ const EditNoteDrawer: React.FC<Props> = ({
     },
   });
 
-  const { mutateAsync } = useTypeSafeMutation("updateNote");
-
   const handleOnSubmit = handleSubmit((data) => {
     onSubmit({
       ...data,
@@ -55,8 +50,6 @@ const EditNoteDrawer: React.FC<Props> = ({
     });
     onClose();
   });
-
-  console.log("selectedNote text drawer", selectedNote?.text);
 
   return (
     <Drawer placement={"right"} onClose={onClose} isOpen={isOpen}>
