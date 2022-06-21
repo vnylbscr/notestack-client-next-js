@@ -6,7 +6,6 @@ import {
   TableCaption,
   Tbody,
   Td,
-  Tfoot,
   Th,
   Thead,
   Tr,
@@ -14,11 +13,8 @@ import {
 import AnimationPageLayout from "@layouts/animation-layout";
 import AppLayout from "@layouts/appLayout";
 import Link from "next/link";
-import React from "react";
 
-type Props = {};
-
-const ShortcutsPage = (props: Props) => {
+const ShortcutsPage = () => {
   return (
     <AppLayout isLoggedIn={false} title={"Shortcuts"}>
       <AnimationPageLayout>
