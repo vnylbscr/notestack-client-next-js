@@ -32,7 +32,13 @@ const RegisterPage = () => {
   const router = useRouter();
 
   const onSubmitForm = handleSubmit((data) => {
-    mutateAsync([data])
+    mutateAsync([
+      {
+        email: data.email,
+        password: data.password,
+        username: data.username,
+      },
+    ])
       .then((res) => {
         setMessage("Submit successfull. You redirect to the login page.");
         setTimeout(() => {

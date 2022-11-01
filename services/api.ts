@@ -77,7 +77,7 @@ const mutation = {
     password,
   }: RegisterParams): Promise<ResObject<String>> => {
     return axios
-      .post("", {
+      .post(`${END_POINT}/auth/register`, {
         email,
         username,
         password,

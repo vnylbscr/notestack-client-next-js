@@ -17,8 +17,12 @@ function apiHandler(req: NextApiRequest, res: NextApiResponse) {
       .catch((error) => {
         console.log("error", error);
         if (error.response) {
-          if (error.response.status === 401) {
+          if (error?.response?.status === 401) {
             res.status(401).json(error.response.data);
+          } else {
+            res
+              .status(error?.response?.status || 500)
+              .json(error?.response?.data);
           }
         }
       });
